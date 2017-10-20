@@ -43,10 +43,10 @@ class DataSendingAgent {
     }
 
     public List<String> syncEvents(JSONArray eventArray, String clientCode) throws JSONException, IOException {
-        //Log.d(TAG, "#### inside syncEvents");
+        Log.d(TAG, "#### inside syncEvents");
         String responseBody = null;
         String postBody = buildFullPayload(eventArray, clientCode);
-        //Log.d(TAG, "#### payload:" + postBody);
+        Log.d(TAG, "#### payload:" + postBody);
         List<String> responses = new ArrayList<>();
 
         List<String> addresses = SharedPreferencesDB.getInstance(App.ctx).
@@ -68,7 +68,7 @@ class DataSendingAgent {
             Response response = null;
             try {
                 response = mHttpClient.newCall(request).execute();
-                //Log.d(TAG, "#### response code:" + response.code());
+                Log.d(TAG, "#### response code:" + response.code());
                 responseBody = response.body().string();
                 Log.e("responcsr", responseBody);
                 responses.add(responseBody);

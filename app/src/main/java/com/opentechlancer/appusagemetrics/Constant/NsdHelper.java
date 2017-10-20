@@ -68,7 +68,9 @@ public class NsdHelper {
     }
 
     public void initializeNsd() {
+        Log.e(TAG, "initializeNsd");
         initializeResolveListener();
+        Log.e(TAG, "before discoverServices");
         discoverServices();
         //mNsdManager.init(mContext.getMainLooper(), this);
     }
@@ -192,7 +194,9 @@ public class NsdHelper {
 
     public void discoverServices() {
         stopDiscovery();  // Cancel any existing discovery request
+        Log.e(TAG, "before initializeDiscoveryListener");
         initializeDiscoveryListener();
+        Log.e(TAG, "before mNsdManager.discoverServices");
         mNsdManager.discoverServices(
                 SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
     }

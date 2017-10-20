@@ -67,13 +67,16 @@ public class CreateStreamServer {
             HTTP_BADREQUEST = "400 Bad Request",
             HTTP_416 = "416 Range not satisfiable",
             HTTP_INTERNALERROR = "500 Internal Server Error";
+    public static final String TAG = "NSDHelperAppUsage: ";
 
     private static int findFreePort() {
         ServerSocket socket = null;
         try {
             socket = new ServerSocket(0);
             socket.setReuseAddress(true);
+            Log.e(TAG, "before getLocalPort");
             int port = socket.getLocalPort();
+            Log.e(TAG, String.format("port = %d", port));
             try {
                 socket.close();
             } catch (IOException e) {
@@ -195,14 +198,14 @@ public class CreateStreamServer {
                 inS.close();
                 Log.e("stream finished", "close");
             } catch (IOException ioe) {
-                    ioe.printStackTrace();
+                ioe.printStackTrace();
                 try {
                     sendError(socket, HTTP_INTERNALERROR, "SERVER INTERNAL ERROR: IOException: " + ioe.getMessage());
                 } catch (Throwable t) {
                 }
             } catch (InterruptedException ie) {
                 // thrown by sendError, ignore and exit the thread
-                    ie.printStackTrace();
+                ie.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -350,7 +353,7 @@ public class CreateStreamServer {
             out.flush();
             out.close();
         } catch (IOException e) {
-                Log.e("debug", e.getMessage());
+            Log.e("debug", e.getMessage());
         }
     }
 
@@ -371,7 +374,7 @@ public class CreateStreamServer {
         }
     }
 
-   public void sendStatus(Socket socket) {
+    public void sendStatus(Socket socket) {
         try {
             String httpResponse = "HTTP/1.1 200 OK\r\n\r\n";
 
